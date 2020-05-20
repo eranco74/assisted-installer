@@ -3,20 +3,19 @@ GIT_REVISION := $(shell git rev-parse HEAD)
 CONTROLLER :=  $(or ${CONTROLLER},quay.io/itsoiref/assisted-installer-controller:latest)
 all: image unit-test
 
-lint: generate
+lint: format
 	golangci-lint run -v
 
-format:
-	goimports -w -l src/
+format: generate
+	goimports -v -l src/
 
 generate:
 	go generate $(shell go list ./...)
-	$(MAKE) format
 
-unit-test: generate
+unit-test: format
 	go test -v $(shell go list ./...) -cover
 
-ut: generate
+ut: format
 	go test -v -coverprofile=coverage.out ./... && go tool cover -html=coverage.out && rm coverage.out
 
 build/installer: lint format
