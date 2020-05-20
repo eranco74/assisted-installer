@@ -11,7 +11,7 @@ format:
 
 generate:
 	go generate $(shell go list ./...)
-	make format
+	$(MAKE) format
 
 unit-test: generate
 	go test -v $(shell go list ./...) -cover
