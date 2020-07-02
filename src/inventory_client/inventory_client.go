@@ -82,15 +82,22 @@ func (c *inventoryClient) GetEnabledHostsNamesIds() (map[string]string, error) {
 		return nil, err
 	}
 	for _, host := range hosts.Payload {
-		err = json.Unmarshal([]byte(host.Inventory), &hwInfo)
-		if err != nil {
-			c.log.Warnf("Failed to parse host %s inventory %s", host.ID.String(), host.Inventory)
-			return nil, err
-		}
 		if *host.Status == models.HostStatusDisabled {
 			continue
 		}
-		namesIdsMap[hwInfo.Hostname] = host.ID.String()
+
+		hostname := host.RequestedHostname
+		c.log.Infof("Host %s, host.RequestedHostname is %s", host.ID.String(), host.RequestedHostname)
+		if hostname == "" {
+			err = json.Unmarshal([]byte(host.Inventory), &hwInfo)
+			if err != nil {
+				c.log.Warnf("Failed to parse host %s inventory %s", host.ID.String(), host.Inventory)
+				return nil, err
+			}
+			hostname = hwInfo.Hostname
+		}
+		c.log.Infof("Adding Host %s, with name  %s", host.ID.String(), hostname)
+		namesIdsMap[hostname] = host.ID.String()
 	}
 	return namesIdsMap, nil
 }

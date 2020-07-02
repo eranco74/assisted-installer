@@ -2,7 +2,11 @@ package installer
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+
+	"os"
 	"path/filepath"
 	"time"
 
@@ -57,6 +61,46 @@ type installer struct {
 	kcBuilder       k8s_client.K8SClientBuilder
 }
 
+type FirstIgnition struct {
+	Ignition struct {
+		Config struct {
+			Append []struct {
+				Source       string `json:"source"`
+				Verification struct {
+				} `json:"verification"`
+			} `json:"append"`
+		} `json:"config"`
+		Security struct {
+			TLS struct {
+				CertificateAuthorities []struct {
+					Source       string `json:"source"`
+					Verification struct {
+					} `json:"verification"`
+				} `json:"certificateAuthorities"`
+			} `json:"tls"`
+		} `json:"security"`
+		Timeouts struct {
+		} `json:"timeouts"`
+		Version string `json:"version"`
+	} `json:"ignition"`
+	Networkd struct {
+	} `json:"networkd"`
+	Passwd struct {
+	} `json:"passwd"`
+	Systemd struct {
+	} `json:"systemd"`
+	Storage struct {
+		Files []struct {
+			Filesystem string `json:"filesystem"`
+			Path       string `json:"path"`
+			Mode       int    `json:"mode"`
+			Contents   struct {
+				Source string `json:"source"`
+			} `json:"contents"`
+		} `json:"files"`
+	} `json:"storage"`
+}
+
 func NewAssistedInstaller(log *logrus.Logger, cfg config.Config, ops ops.Ops, ic inventory_client.InventoryClient, kcb k8s_client.K8SClientBuilder) *installer {
 	return &installer{
 		log:             log,
@@ -107,6 +151,8 @@ func (i *installer) InstallNode() error {
 	if err != nil {
 		return err
 	}
+
+	i.setHostnameInIgnition(ignitionPath)
 
 	i.UpdateHostStatus(WritingImageToDisk)
 
@@ -354,4 +400,56 @@ func (i *installer) cleanupInstallDevice() error {
 	}
 
 	return i.ops.RemovePV(i.Device)
+}
+
+func (i *installer) setHostnameInIgnition(ignitionPath string) {
+	file, err := ioutil.ReadFile(ignitionPath)
+	if err != nil {
+		i.log.Errorf("Failed to read ignition file %s", ignitionPath)
+		return
+	}
+	var ignition FirstIgnition
+	err = json.Unmarshal(file, &ignition)
+	if err != nil {
+		i.log.Errorf("Failed to unmarshall ignition file %s", ignitionPath)
+		return
+	}
+	ignition.Storage = struct {
+		Files []struct {
+			Filesystem string `json:"filesystem"`
+			Path       string `json:"path"`
+			Mode       int    `json:"mode"`
+			Contents   struct {
+				Source string `json:"source"`
+			} `json:"contents"`
+		} `json:"files"`
+	}{
+		Files: []struct {
+			Filesystem string `json:"filesystem"`
+			Path       string `json:"path"`
+			Mode       int    `json:"mode"`
+			Contents   struct {
+				Source string `json:"source"`
+			} `json:"contents"`
+		}{
+			{
+				Filesystem: "root",
+				Path:       "/etc/hostname",
+				Mode:       420,
+				Contents: struct {
+					Source string `json:"source"`
+				}{Source: fmt.Sprintf("data:,%s", i.Hostname)},
+			},
+		},
+	}
+	jsonString, err := json.Marshal(ignition)
+	if err != nil {
+		i.log.Errorf("Failed to marshall ignition struct")
+		return
+	}
+	err = ioutil.WriteFile(ignitionPath, jsonString, os.ModePerm)
+	if err != nil {
+		i.log.Errorf("Failed to write new ignition to %s", ignitionPath)
+		return
+	}
 }
