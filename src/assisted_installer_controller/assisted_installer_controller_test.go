@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/strfmt"
 
-	"github.com/filanov/bm-inventory/models"
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 
 	"k8s.io/api/certificates/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

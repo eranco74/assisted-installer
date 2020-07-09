@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/filanov/bm-inventory/models"
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 )
 
 type Config struct {

@@ -1,3 +1,8 @@
 build
 
 **/RCS/**
+client
+models
+swagger.yaml
+
+**/mock_*.go

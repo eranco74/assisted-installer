@@ -4,8 +4,8 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 	"github.com/eranco74/assisted-installer/src/inventory_client"
-	"github.com/filanov/bm-inventory/models"
 	"github.com/golang/mock/gomock"
 
 	"github.com/sirupsen/logrus/hooks/test"

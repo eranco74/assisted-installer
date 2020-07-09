@@ -12,8 +12,8 @@ import (
 
 	v1 "k8s.io/api/core/v1"
 
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 	"github.com/eranco74/assisted-installer/src/k8s_client"
-	"github.com/filanov/bm-inventory/models"
 
 	"github.com/eranco74/assisted-installer/src/config"
 	"github.com/eranco74/assisted-installer/src/inventory_client"

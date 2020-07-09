@@ -3,13 +3,13 @@ package main
 import (
 	"os"
 
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 	"github.com/eranco74/assisted-installer/src/config"
 	"github.com/eranco74/assisted-installer/src/installer"
 	"github.com/eranco74/assisted-installer/src/inventory_client"
 	"github.com/eranco74/assisted-installer/src/k8s_client"
 	"github.com/eranco74/assisted-installer/src/ops"
 	"github.com/eranco74/assisted-installer/src/utils"
-	"github.com/filanov/bm-inventory/models"
 )
 
 func main() {

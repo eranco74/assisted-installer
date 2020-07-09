@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/filanov/bm-inventory/models"
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 
 	ignition "github.com/coreos/ignition/config/v2_2"
 	"github.com/coreos/ignition/config/v2_2/types"

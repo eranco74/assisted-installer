@@ -103,6 +103,7 @@ github.com/erikstmartin/go-testdb v0.0.0-20160219214506-8d10e4a1bae5/go.mod h1:a
 github.com/evanphx/json-patch v4.2.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/evanphx/json-patch v4.5.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
+github.com/filanov/bm-inventory v1.0.4 h1:Vgovf+bQ/LELvq7oYyUPwz7QicRfNr7w7pfvqQmpyFI=
 github.com/filanov/bm-inventory v1.0.5-0.20200708111900-dd688075cf50 h1:PmPifzNjqn6Re70RqFHRiuHB+IeaIdMV9xVDL0+lU24=
 github.com/filanov/bm-inventory v1.0.5-0.20200708111900-dd688075cf50/go.mod h1:f6PxP73qFkAtN7KhXHbjo9u0ztZfLYZFugjhvLviKG4=
 github.com/filanov/bm-inventory v1.0.5-0.20200709155130-4b2c56a19f59 h1:V1J5IjXM2bMKkgI7n5Y7RGpB7wB5ResqOMUO203/KJg=

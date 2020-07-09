@@ -6,10 +6,10 @@ import (
 
 	"github.com/eranco74/assisted-installer/src/common"
 
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 	"github.com/eranco74/assisted-installer/src/inventory_client"
 	"github.com/eranco74/assisted-installer/src/k8s_client"
 	"github.com/eranco74/assisted-installer/src/ops"
-	"github.com/filanov/bm-inventory/models"
 
 	"github.com/sirupsen/logrus"
 	"k8s.io/api/certificates/v1beta1"

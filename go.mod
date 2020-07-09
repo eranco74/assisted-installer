@@ -6,9 +6,12 @@ require (
 	github.com/ajeddeloh/go-json v0.0.0-20200220154158-5ae607161559 // indirect
 	github.com/coreos/ignition v0.35.0
 	github.com/filanov/bm-inventory v1.0.6-0.20200715181832-13822c3e5bbb
+	github.com/go-openapi/errors v0.19.6
+	github.com/go-openapi/runtime v0.19.19
 	github.com/go-openapi/strfmt v0.19.5
+	github.com/go-openapi/swag v0.19.9
+	github.com/go-openapi/validate v0.19.10
 	github.com/golang/mock v1.4.0
-	github.com/google/uuid v1.1.1
 	github.com/jasonlvhit/gocron v0.0.0-20200423141508-ab84337f7963 // indirect
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/onsi/ginkgo v1.12.2
@@ -16,6 +19,7 @@ require (
 	github.com/openshift/client-go v0.0.0-20200422192633-6f6c07fc2a70
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.6.0
+	github.com/stretchr/testify v1.6.1
 	github.com/thoas/go-funk v0.6.0
 	github.com/vincent-petithory/dataurl v0.0.0-20191104211930-d1553a71de50
 	go4.org v0.0.0-20200411211856-f5505b9728dd // indirect

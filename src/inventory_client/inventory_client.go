@@ -10,10 +10,10 @@ import (
 
 	"github.com/eranco74/assisted-installer/src/utils"
 
-	"github.com/filanov/bm-inventory/models"
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/models"
 
-	"github.com/filanov/bm-inventory/client"
-	"github.com/filanov/bm-inventory/client/installer"
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/client"
+	"github.com/eranco74/assisted-installer/generated/bm-inventory/client/installer"
 	"github.com/filanov/bm-inventory/pkg/requestid"
 	"github.com/go-openapi/strfmt"
 	"github.com/sirupsen/logrus"
