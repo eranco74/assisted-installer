@@ -78,7 +78,7 @@ var _ = Describe("installer HostRoleMaster role", func() {
 	}
 	configuringSuccess := func() {
 		mockk8sclient.EXPECT().GetPods(gomock.Any(), gomock.Any()).Return([]v1.Pod{}, nil).AnyTimes()
-		mockbmclient.EXPECT().SetConfiguringStatusForHosts(gomock.Any(), gomock.Any()).Return().AnyTimes()
+		mockbmclient.EXPECT().SetConfiguringStatusForHosts(gomock.Any(), gomock.Any(), false).Return().AnyTimes()
 	}
 
 	updateProgressSuccess := func(stages []models.HostStage, inventoryNamesIds map[string]inventory_client.EnabledHostData) {

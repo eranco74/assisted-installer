@@ -57,13 +57,6 @@ var _ = Describe("installer HostRoleMaster role", func() {
 		mockbmclient.EXPECT().DownloadFile(fileName, filepath.Join(InstallDir, fileName)).Return(nil).Times(1)
 	}
 
-	//updateStatusConfiguringSuccess := func() {
-	//	mockbmclient.EXPECT().GetEnabledHostsNamesHosts().Return(inventoryNamesHost, nil).AnyTimes()
-	//	mockops.EXPECT().GetMCSLogs().Return("dummy logs", nil).AnyTimes()
-	//	mockbmclient.EXPECT().SetConfiguringStatusForHosts(inventoryNamesHost, "dummy logs").Return().AnyTimes()
-	//
-	//}
-
 	cleanInstallDevice := func() {
 		mockops.EXPECT().GetVGByPV(device).Return("", nil).Times(1)
 	}
@@ -179,7 +172,6 @@ var _ = Describe("installer HostRoleMaster role", func() {
 			daemonReload(nil)
 			restartNetworkManager(nil)
 			prepareControllerSuccess()
-			// updateStatusConfiguringSuccess()
 			startServicesSuccess()
 			patchEtcdSuccess()
 			WaitMasterNodesSucccess()
@@ -205,7 +197,6 @@ var _ = Describe("installer HostRoleMaster role", func() {
 			extractSuccess()
 			daemonReload(nil)
 			restartNetworkManager(nil)
-			// updateStatusConfiguringSuccess()
 			prepareControllerSuccess()
 			startServicesSuccess()
 			WaitMasterNodesSucccess()
@@ -227,7 +218,6 @@ var _ = Describe("installer HostRoleMaster role", func() {
 			downloadFileSuccess(bootstrapIgn)
 			extractSecretFromIgnitionSuccess()
 			extractSuccess()
-			// updateStatusConfiguringSuccess()
 			daemonReload(nil)
 			err := fmt.Errorf("Failed to restart NetworkManager")
 			restartNetworkManager(err)
@@ -255,9 +245,9 @@ var _ = Describe("installer HostRoleMaster role", func() {
 			mockops.EXPECT().GetMCSLogs().Return("dummy logs", nil).Times(1)
 			mockops.EXPECT().GetMCSLogs().Return("dummy logs", nil).Times(1)
 			mockops.EXPECT().GetMCSLogs().Return(logs, nil).AnyTimes()
-			mockbmclient.EXPECT().SetConfiguringStatusForHosts(testInventoryIdsIps, "dummy logs").Return().Times(1)
-			mockbmclient.EXPECT().SetConfiguringStatusForHosts(testInventoryIdsIps, "dummy logs").Return().Times(1)
-			mockbmclient.EXPECT().SetConfiguringStatusForHosts(testInventoryIdsIps, logs).Return().AnyTimes()
+			mockbmclient.EXPECT().SetConfiguringStatusForHosts(testInventoryIdsIps, "dummy logs", true).Return().Times(1)
+			mockbmclient.EXPECT().SetConfiguringStatusForHosts(testInventoryIdsIps, "dummy logs", true).Return().Times(1)
+			mockbmclient.EXPECT().SetConfiguringStatusForHosts(testInventoryIdsIps, logs, true).Return().AnyTimes()
 
 			done := make(chan bool)
 			go i.updateConfiguringStatus(done)
