@@ -24,7 +24,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-//const baseHref = "/api/bm-inventory/v1"
 const (
 	InstallDir     = "/opt/install-dir"
 	KubeconfigPath = "/opt/openshift/auth/kubeconfig-loopback"
@@ -367,7 +366,7 @@ func (i *installer) verifyHostCanMoveToConfigurationStatus(inventoryHostsMapWith
 		i.log.Infof("Failed to get MCS logs, will retry")
 		return
 	}
-	i.inventoryClient.SetConfiguringStatusForHosts(inventoryHostsMapWithIp, logs)
+	i.inventoryClient.SetConfiguringStatusForHosts(inventoryHostsMapWithIp, logs, true)
 }
 
 // will run as go routine and tries to find nodes that pulled ignition from mcs
