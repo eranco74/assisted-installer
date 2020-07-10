@@ -107,13 +107,13 @@ func (mr *MockInventoryClientMockRecorder) GetCluster() *gomock.Call {
 }
 
 // SetConfiguringStatusForHosts mocks base method
-func (m *MockInventoryClient) SetConfiguringStatusForHosts(inventoryHostsMapWithIp map[string]EnabledHostData, mcsLogs string) {
+func (m *MockInventoryClient) SetConfiguringStatusForHosts(inventoryHostsMapWithIp map[string]EnabledHostData, mcsLogs string, fromBootstrap bool) {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "SetConfiguringStatusForHosts", inventoryHostsMapWithIp, mcsLogs)
+	m.ctrl.Call(m, "SetConfiguringStatusForHosts", inventoryHostsMapWithIp, mcsLogs, fromBootstrap)
 }
 
 // SetConfiguringStatusForHosts indicates an expected call of SetConfiguringStatusForHosts
-func (mr *MockInventoryClientMockRecorder) SetConfiguringStatusForHosts(inventoryHostsMapWithIp, mcsLogs interface{}) *gomock.Call {
+func (mr *MockInventoryClientMockRecorder) SetConfiguringStatusForHosts(inventoryHostsMapWithIp, mcsLogs, fromBootstrap interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetConfiguringStatusForHosts", reflect.TypeOf((*MockInventoryClient)(nil).SetConfiguringStatusForHosts), inventoryHostsMapWithIp, mcsLogs)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetConfiguringStatusForHosts", reflect.TypeOf((*MockInventoryClient)(nil).SetConfiguringStatusForHosts), inventoryHostsMapWithIp, mcsLogs, fromBootstrap)
 }
