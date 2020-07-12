@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/eranco74/assisted-installer/src/common"
+
 	"path/filepath"
 	"time"
 
@@ -366,7 +368,7 @@ func (i *installer) verifyHostCanMoveToConfigurationStatus(inventoryHostsMapWith
 		i.log.Infof("Failed to get MCS logs, will retry")
 		return
 	}
-	i.inventoryClient.SetConfiguringStatusForHosts(inventoryHostsMapWithIp, logs, true)
+	common.SetConfiguringStatusForHosts(i.inventoryClient, inventoryHostsMapWithIp, logs, true, i.log)
 }
 
 // will run as go routine and tries to find nodes that pulled ignition from mcs

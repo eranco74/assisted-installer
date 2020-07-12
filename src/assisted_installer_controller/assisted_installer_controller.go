@@ -4,6 +4,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/eranco74/assisted-installer/src/common"
+
 	"github.com/eranco74/assisted-installer/src/inventory_client"
 	"github.com/eranco74/assisted-installer/src/k8s_client"
 	"github.com/eranco74/assisted-installer/src/ops"
@@ -106,7 +108,7 @@ func (c *controller) updateConfiguringStatusIfNeeded(hosts map[string]inventory_
 	if err != nil {
 		return
 	}
-	c.ic.SetConfiguringStatusForHosts(hosts, logs, false)
+	common.SetConfiguringStatusForHosts(c.ic, hosts, logs, true, c.log)
 }
 
 func (c *controller) getInventoryNodesMap() map[string]inventory_client.EnabledHostData {
