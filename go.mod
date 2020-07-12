@@ -5,7 +5,7 @@ go 1.14
 require (
 	github.com/ajeddeloh/go-json v0.0.0-20200220154158-5ae607161559 // indirect
 	github.com/coreos/ignition v0.35.0
-	github.com/filanov/bm-inventory v1.0.5-0.20200709155130-4b2c56a19f59
+	github.com/filanov/bm-inventory v1.0.5-0.20200712092810-1e35f50fb322
 	github.com/go-openapi/strfmt v0.19.5
 	github.com/golang/mock v1.4.0
 	github.com/kelseyhightower/envconfig v1.4.0
