@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"regexp"
-	"strings"
 
 	"github.com/eranco74/assisted-installer/src/utils"
 
@@ -28,7 +26,6 @@ type InventoryClient interface {
 	GetEnabledHostsNamesHosts() (map[string]EnabledHostData, error)
 	UploadIngressCa(ingressCA string, clusterId string) error
 	GetCluster() (*models.Cluster, error)
-	SetConfiguringStatusForHosts(inventoryHostsMapWithIp map[string]EnabledHostData, mcsLogs string, fromBootstrap bool)
 }
 
 type inventoryClient struct {
@@ -151,37 +148,4 @@ func (c *inventoryClient) getEnabledHostsWithInventoryInfo() (map[string]Enabled
 		hostsWithHwInfo[host.ID.String()] = EnabledHostData{Inventory: &hwInfo, Host: host}
 	}
 	return hostsWithHwInfo, nil
-}
-
-// TODO move states to enums after bm-inventory changes
-func (c *inventoryClient) SetConfiguringStatusForHosts(inventoryHostsMapWithIp map[string]EnabledHostData, mcsLogs string, fromBootstrap bool) {
-	notValidStates := map[models.HostStage]string{models.HostStageConfiguring: "", models.HostStageJoined: "", models.HostStageDone: ""}
-	if fromBootstrap {
-		notValidStates[models.HostStageWaitingForIgnition] = ""
-	}
-	for key, host := range inventoryHostsMapWithIp {
-		_, ok := notValidStates[models.HostStage(host.Host.Progress)]
-		if ok {
-			continue
-		}
-		c.log.Infof("Verifying if host %s pulled ignition", key)
-		pat := fmt.Sprintf("(%s)", strings.Join(host.IPs, "|"))
-		pattern, err := regexp.Compile(pat)
-		if err != nil {
-			c.log.WithError(err).Errorf("Failed to compile regex from host %s ips list", host.Host.ID.String())
-			return
-		}
-		if pattern.MatchString(mcsLogs) {
-			status := models.HostStageConfiguring
-			if fromBootstrap && host.Host.Role == models.HostRoleWorker {
-				status = models.HostStageWaitingForIgnition
-			}
-			c.log.Infof("Host %s found in mcs logs, moving it to %s state", host.Host.ID.String(), status)
-			if err := c.UpdateHostInstallProgress(host.Host.ID.String(), status, ""); err != nil {
-				c.log.Errorf("Failed to update node installation status, %s", err)
-				continue
-			}
-			inventoryHostsMapWithIp[key].Host.Progress = string(status)
-		}
-	}
 }
