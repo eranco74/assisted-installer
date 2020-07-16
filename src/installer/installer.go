@@ -97,7 +97,7 @@ func (i *installer) InstallNode() error {
 	}
 
 	i.UpdateHostInstallProgress(models.HostStageInstalling, i.Config.Role)
-	ignitionFileName := i.Config.Role + ".ign"
+	ignitionFileName := fmt.Sprintf("%s-%s.ign", i.Config.HostID, i.Config.Role)
 	ignitionPath, err := i.getFileFromService(ignitionFileName)
 	if err != nil {
 		return err
