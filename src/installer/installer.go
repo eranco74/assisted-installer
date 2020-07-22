@@ -135,6 +135,7 @@ func (i *installer) InstallNode() error {
 	if err = i.ops.Reboot(); err != nil {
 		return err
 	}
+	i.UpdateHostInstallProgress(models.HostStageDone, "")
 	return nil
 }
 
