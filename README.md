@@ -1,3 +1,6 @@
+# **DEPRECATED** - use [Openshift assisted-installer](https://github.com/openshift/assisted-installer).
+
+
 # OpenShift Assisted Installer
 The OpenShift Assisted Installer provides for easy provisioning of new bare metal machines and creation of OpenShift clusters.
 The Assisted Installer is meant to run on FCOS or RHCOS liveCD images.
